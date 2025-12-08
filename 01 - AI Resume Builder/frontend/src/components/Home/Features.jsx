@@ -10,7 +10,7 @@ const Features = () => {
       className="flex items-center flex-col my-10 scroll-mt-12"
     >
       <div className="flex items-center gap-2 text-sm text-indigo-800 bg-rose-400/10 border-2 border-indigo-300 rounded-xl px-4 py-1">
-        <Zap />
+        <Zap width={14} />
         <span>90% faster than manual editing</span>
       </div>
 
