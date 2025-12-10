@@ -40,6 +40,10 @@ const Dashboard = () => {
     navigate(`/app/builder/1`);
   };
 
+  const editResumeHandler = async (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     loadAllResume();
   }, []);
@@ -83,6 +87,9 @@ const Dashboard = () => {
             return (
               <button
                 key={index}
+                onClick={(e) => {
+                  navigate(`/app/builder/${resume._id}`);
+                }}
                 className="relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer"
                 style={{
                   background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
@@ -106,9 +113,18 @@ const Dashboard = () => {
                   Updated On {new Date(resume.updatedAt).toLocaleDateString()}{" "}
                 </p>
 
-                <div className="absolute top-1 ring-1 group-hover:flex items-center hidden rounded-sm">
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="absolute top-1 right-1 group-hover:flex items-center hidden rounded-sm"
+                >
                   <TrashIcon className="size-7 p-1.5 hover:bg-white/50 rounded text-neutral-700 transition-colors" />
-                  <PencilIcon className="size-7 p-1.5 hover:bg-white/50 rounded text-neutral-700 transition-colors" />
+                  <PencilIcon
+                    onClick={(e) => {
+                      setEditResumeId(`${resume._id}`);
+                      setTitle(resume.title);
+                    }}
+                    className="size-7 p-1.5 hover:bg-white/50 rounded text-neutral-700 transition-colors"
+                  />
                 </div>
               </button>
             );
@@ -213,6 +229,44 @@ const Dashboard = () => {
                 className="absolute top-4 right-4 text-neutral-500 hover:text-neutral-700 cursor-pointer transition-colors"
                 onClick={() => {
                   setShowUploadResume(false);
+                  setTitle("");
+                }}
+              />
+            </div>
+          </form>
+        )}
+
+        {editResumeId && (
+          <form
+            onSubmit={editResumeHandler}
+            onClick={() => {
+              setEditResumeId("");
+            }}
+            className="fixed inset-0 bg-black/70 backdrop-blur bg-opacity-50 z-10 flex items-center justify-center"
+          >
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="relative bg-neutral-50 border shadow-md rounded-lg w-full max-w-sm p-6"
+            >
+              <h2 className="text-xl font-bold mb-4">Edit Title</h2>
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                placeholder="Resume Title"
+                className="w-full px-4 py-2 mb-4 focus:border-indigo-600 ring-indigo-600"
+                required
+              />
+
+              <button className="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+                Update
+              </button>
+              <XIcon
+                className="absolute top-4 right-4 text-neutral-500 hover:text-neutral-700 cursor-pointer transition-colors"
+                onClick={() => {
+                  setEditResumeId("");
                   setTitle("");
                 }}
               />
