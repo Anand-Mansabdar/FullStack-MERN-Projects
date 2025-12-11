@@ -18,6 +18,7 @@ const ProfessionalSummaryForm = ({ data, onChange, setResumeData }) => {
         {/* Right side - AI Enhancing Button */}
         <button className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
           <Sparkles className="size-4" />
+          AI Enchance
         </button>
       </div>
 
