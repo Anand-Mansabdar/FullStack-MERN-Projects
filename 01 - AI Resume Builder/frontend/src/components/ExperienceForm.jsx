@@ -136,7 +136,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   </label>
                   <button className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
                     <Sparkles className="w-3 h-3" />
-                    Enchance With AI
+                    Enhance With AI
                   </button>
                 </div>
                 <textarea

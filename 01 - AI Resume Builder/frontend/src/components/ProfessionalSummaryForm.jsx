@@ -1,7 +1,33 @@
-import { Sparkles } from "lucide-react";
-import React from "react";
+import { Loader2, Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import api from "../config/api";
+import toast from "react-hot-toast";
 
 const ProfessionalSummaryForm = ({ data, onChange, setResumeData }) => {
+  const { token } = useSelector((state) => state.auth);
+  const [isGenerating, setisGenerating] = useState(false);
+
+  const generateSummary = async () => {
+    try {
+      setisGenerating(true);
+      const prompt = `Enhance my professional summary "${data}"`;
+      const response = await api.post(
+        `/api/ai/enhance-professional-summary`,
+        { userContent: prompt },
+        { headers: { Authorization: token } }
+      );
+      setResumeData((prev) => ({
+        ...prev,
+        professional_summary: response.data.enhancedContent,
+      }));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setisGenerating(false);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -16,9 +42,17 @@ const ProfessionalSummaryForm = ({ data, onChange, setResumeData }) => {
         </div>
 
         {/* Right side - AI Enhancing Button */}
-        <button className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
-          <Sparkles className="size-4" />
-          AI Enchance
+        <button
+          disabled={isGenerating}
+          onClick={generateSummary}
+          className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
+        >
+          {isGenerating ? (
+            <Loader2 className="animate-spin size-4" />
+          ) : (
+            <Sparkles className="size-4" />
+          )}
+          {isGenerating ? "Enhancing..." : "AI Enhance"}
         </button>
       </div>
 
