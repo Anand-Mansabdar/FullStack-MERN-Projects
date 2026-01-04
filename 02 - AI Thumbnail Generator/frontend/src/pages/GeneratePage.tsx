@@ -8,6 +8,7 @@ import {
 } from "../assets/assets";
 import SoftBackdrop from "../components/SoftBackdrop";
 import AspectRatioSelector from "../components/AspectRatioSelector";
+import StyleSelector from "../components/StyleSelector";
 
 const GeneratePage = () => {
   const { id } = useParams();
@@ -66,6 +67,13 @@ const GeneratePage = () => {
                     onChange={setAspectRatio}
                   />
                   {/* Style Selector */}
+                  <StyleSelector
+                    value={style}
+                    onChange={setStyle}
+                    isOpen={styleDropDownOpen}
+                    setIsOpen={setStyleDropDownOpen}
+                  />
+
                   {/* Color Scheme Selector */}
 
                   {/* Additional Details Input */}
