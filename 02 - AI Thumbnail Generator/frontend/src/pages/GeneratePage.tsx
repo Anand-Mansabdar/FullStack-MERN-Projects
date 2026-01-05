@@ -10,6 +10,8 @@ import SoftBackdrop from "../components/SoftBackdrop";
 import AspectRatioSelector from "../components/AspectRatioSelector";
 import StyleSelector from "../components/StyleSelector";
 import ColorSchemeSelector from "../components/ColorSchemeSelector";
+import PreviewPage from "./PreviewPage";
+import PreviewPanel from "../components/PreviewPanel";
 
 const GeneratePage = () => {
   const { id } = useParams();
@@ -108,7 +110,18 @@ const GeneratePage = () => {
             </div>
 
             {/* Right Panel */}
-            <div></div>
+            <div>
+              <div className="p-6 rounded-2xl bg-white/8 border border-white/10 shadow-xl">
+                <h2 className="text-lg font-semibold text-zinc-100 mb-4">
+                  Thumbnail Preview
+                </h2>
+                <PreviewPanel
+                  thumbnail={thumbnail}
+                  isLoading={loading}
+                  aspectRatio={aspectRatio}
+                />
+              </div>
+            </div>
           </div>
         </main>
       </div>
