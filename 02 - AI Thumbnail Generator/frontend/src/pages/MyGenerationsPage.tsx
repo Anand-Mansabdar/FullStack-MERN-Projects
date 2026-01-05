@@ -4,7 +4,6 @@ import { dummyThumbnails, type IThumbnail } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowUpRightIcon,
-  DeleteIcon,
   DownloadIcon,
   TrashIcon,
 } from "lucide-react";
